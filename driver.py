@@ -24,21 +24,6 @@ def get_files():
         yield filenames
 
 
-# def list_csv_metadata(single_file):
-#     fieldnames = ['record_id', 'participants', 'type', 'format', 'date', 'source', 'title', 'url', 'description']
-#
-#     with open('zuckerberg.csv', 'r', encoding='utf-8') as infile:
-#
-#         reader = csv.DictReader(infile, fieldnames)
-#         for row in reader:
-#             metadata = {}
-#             if row['record_id'] == single_file.strip():
-#
-#                 for name in fieldnames:
-#                     metadata[name] = row[name]
-#                 return metadata
-
-
 def find_metadata(single_file):
     if single_file.strip() in metadata['record_id']:
         # get index of record id
