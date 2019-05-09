@@ -46,7 +46,6 @@ def write_xml_file(single_file, xml_transcript):
 if __name__ == '__main__':
     set_directory()
     files_no_ext = [re.match(r'\d\d\d\d-\d\d\d', file).group(0) for file in get_files()]
-    print(files_no_ext)
     for single_file in files_no_ext:
         # calling methods within
         m = find_metadata(single_file)

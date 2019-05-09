@@ -13,13 +13,7 @@ class Contents():
 
     def get_contents_index(self, reader):
 
-        content_pos = reader.find('##content##') + "##content##".__len__()
-        print(content_pos)
-
-        # if content_pos == 10:
-        #     print('check transcript - content not found for %s' % self.file)
-        #     return None
-
+        content_pos = reader.find('##content##') + len("##content##")
         return reader[content_pos:]
 
     def isolate_utterances(self,contents):
