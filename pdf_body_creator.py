@@ -6,16 +6,15 @@ from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.enums import TA_JUSTIFY
 from chardet.universaldetector import UniversalDetector
 
-os.chdir('/Users/MasonBaran/Desktop/zuck_stuff/temp_pdf_create')
-
-def list_filenames():
-    filenames = [name.split(".")[0] for name in os.listdir(".") if name.endswith(".txt")]
-    return filenames
+#
+# def list_filenames():
+#     filenames = [name.split(".")[0] for name in os.listdir(".") if name.endswith(".txt")]
+#     return filenames
 
 
 def determine_encoding(filename):
     detector = UniversalDetector()
-    with open(filename + '.txt', 'rb') as infile:
+    with open(filename, 'rb') as infile:
         detector.reset()
         for line in infile:
             detector.feed(line)
@@ -25,9 +24,10 @@ def determine_encoding(filename):
         return detector.result
 
 
-def create_pdf(filename, detector_result):
-    with open(filename + '.txt', 'r', encoding = detector_result['encoding']) as infile:
-        doc = SimpleDocTemplate(filename + '_body.pdf', pagesize=letter, rightMargin=80, leftMargin=80,\
+def create_pdf_body(filename, r_id):
+    detector_result = determine_encoding(filename)
+    with open(filename, 'r', encoding = detector_result['encoding']) as infile:
+        doc = SimpleDocTemplate('pdf/'+ r_id + '_body.pdf', pagesize=letter, rightMargin=80, leftMargin=80,\
                                 topMargin=60, bottomMargin=60)
         styles = getSampleStyleSheet()
         styles.add(ParagraphStyle(name='Paragraph', fontName='Helvetica', fontSize=12,  leading=18))
@@ -52,10 +52,10 @@ def create_pdf(filename, detector_result):
         doc.build(content)
 
 
-def main():
-    for filename in list_filenames():
-        detector_result = determine_encoding(filename)
-        create_pdf(filename, detector_result)
-
-
-main()
+# def main():
+#     for filename in list_filenames():
+#         detector_result = determine_encoding(filename)
+#         create_pdf(filename, detector_result)
+#
+#
+# main()

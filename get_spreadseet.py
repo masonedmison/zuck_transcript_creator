@@ -33,7 +33,7 @@ def build_dict():
     metadata['url'] = url[1:]
     metadata['description'] = description[1:]
 
-    # return dictionary
+    # return dictionary of all values
     return metadata
 
 

@@ -6,27 +6,27 @@ import csv
 os.chdir('/Users/MasonBaran/Desktop/4-2_pdf_create/missed')
 
 
-def create_filenames():
-    # Creating list of filenames in folder specified when setting directory above
-    filenames = [name.split("_")[0] for name in os.listdir(".") if name.endswith(".pdf")]
-    return filenames
+# def create_filenames():
+#     # Creating list of filenames in folder specified when setting directory above
+#     filenames = [name.split("_")[0] for name in os.listdir(".") if name.endswith(".pdf")]
+#     return filenames
 
 
-def create_metadata():
-    metadata = []
-    with open('zuck.csv', encoding="UTF-8") as csvfile:
-        fieldnames = ['record_id', 'participants', 'record_type', 'record_format',
-                      'date', 'source', 'title', 'url', 'description']
-        reader = csv.DictReader(csvfile, fieldnames)
-        for row in reader:
-            record = {}
-            for name in fieldnames:
-                record[name] = row[name]
-            metadata.append(record)
-        return metadata
+# def create_metadata():
+#     metadata = []
+#     with open('zuck.csv', encoding="UTF-8") as csvfile:
+#         fieldnames = ['record_id', 'participants', 'record_type', 'record_format',
+#                       'date', 'source', 'title', 'url', 'description']
+#         reader = csv.DictReader(csvfile, fieldnames)
+#         for row in reader:
+#             record = {}
+#             for name in fieldnames:
+#                 record[name] = row[name]
+#             metadata.append(record)
+#         return metadata
 
 
-def create_pdf(row):
+def create_pdf_cover(row):
     # Create instance of FPDF class
     pdf = FPDF(format='Letter', unit='in')
 
@@ -109,7 +109,7 @@ def create_pdf(row):
     pdf.set_font('Helvetica', 'B')
     pdf.cell(1.1, th, 'Type: ', align='R')
     pdf.set_font('Helvetica', style = '')
-    pdf.multi_cell(4.93, th, row['record_type'], align='L')
+    pdf.multi_cell(4.93, th, row['type'], align='L')
     pdf.ln(.25)
 
     # URL
@@ -120,17 +120,17 @@ def create_pdf(row):
     pdf.multi_cell(4.93, th, row['url'], align='L')
 
     # Write file
-    pdf.output(row['record_id'] + '_cover' + '.pdf', 'F')
+    pdf.output('pdf/' + row['record_id'] + '_cover' + '.pdf', 'F')
 
 
-def main():
-    filenames = create_filenames()
-    for row in create_metadata():
-        if row['record_id'] in filenames:
-            try:
-                create_pdf(row)
-            except UnicodeEncodeError:
-                print('UnicodeEncodeError: ' + row['record_id'])
-
-
-main()
+# def main():
+#     filenames = create_filenames()
+#     for row in create_metadata():
+#         if row['record_id'] in filenames:
+#             try:
+#                 create_pdf(row)
+#             except UnicodeEncodeError:
+#                 print('UnicodeEncodeError: ' + row['record_id'])
+#
+#
+# main()

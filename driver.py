@@ -4,6 +4,10 @@ import contents_parser
 from xml_builder import XmlBuilder
 from get_spreadseet import build_dict
 import re
+from pdf_cover_creator import create_pdf_cover
+from pdf_body_creator import create_pdf_body
+from pdf_merger import pdf_merge
+
 
 
 metadata = build_dict()
@@ -15,8 +19,16 @@ def set_directory():
     set working directory where txt files live
     """
     global PATH
-    PATH = input("Enter the full file path to the txt files to be converted: ").strip()
-    os.chdir(PATH)
+    print('**Please make sure that the text files follow the double hashtag format as shown \n'
+          'in the documentation**')
+    print('#############################################################')
+    while True:
+        try:
+            PATH = input("Enter the full file path to the txt files to be converted: ").strip()
+            os.chdir(PATH)
+            break
+        except FileNotFoundError as fnf:
+            print('File not found - invalid path at {}'.format(PATH))
 
 
 def get_files():
@@ -29,7 +41,6 @@ def find_metadata(single_file):
         # get index of record id
         rid_index = metadata['record_id'].index(single_file)
         m = {k : metadata[k][rid_index] for k in metadata.keys()}
-        print(m)
         return m
 
 
@@ -43,12 +54,25 @@ def write_xml_file(single_file, xml_transcript):
         transcript_file.write(xml_transcript)
 
 
+def delegate_pdf(m, single_file, r_id):
+    if not os.path.exists(PATH+'/pdf'):
+        os.makedirs(PATH+'/pdf')
+    # append '-contents.txt' back to single file
+    f = '{}-contents.txt'.format(single_file)
+    create_pdf_cover(m)
+    create_pdf_body(f, r_id)
+    pdf_merge(single_file)
+    os.remove('pdf/{}_cover.pdf'.format(r_id))
+
+
 if __name__ == '__main__':
     set_directory()
     files_no_ext = [re.match(r'\d\d\d\d-\d\d\d', file).group(0) for file in get_files()]
     for single_file in files_no_ext:
         # calling methods within
         m = find_metadata(single_file)
+        # take care of pdf stuff
+        delegate_pdf(m, single_file, m['record_id'])
         content_instance = contents_parser.Contents(single_file)
         contents = content_instance.content_creator()
         if contents is not None and m is not None:

@@ -1,7 +1,7 @@
 import re
 
 
-class Contents():
+class Contents:
 
     def __init__(self, file):
         self.file = file + '-contents.txt'
@@ -17,11 +17,10 @@ class Contents():
         return reader[content_pos:]
 
     def isolate_utterances(self,contents):
-
         regex = re.compile(r'^##.+?##', flags=re.DOTALL and re.MULTILINE)
         names = regex.findall(contents) #list of names with hashtag symbols
 
-#iterate through list and replaces index with no hashtag name
+        # iterate through list and replaces index with no hashtag nam
         for index, name in enumerate(names):
             names[index] = re.sub('[##]*','', name)
 
