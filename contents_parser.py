@@ -4,7 +4,7 @@ import re
 class Contents:
 
     def __init__(self, file):
-        self.file = file + '-contents.txt'
+        self.file = file + '.txt'
 
     def open_file_create_reader_object_instance(self):
         with open(self.file, 'r', encoding='utf-8')as infile:

@@ -16,11 +16,10 @@ source = master.col_values(11)
 title = master.col_values(12)
 url = master.col_values(16)
 description = master.col_values(17)
+keywords = master.col_values(18)
 
 
 def build_dict():
-    # build dict
-
     metadata = dict()
 
     metadata['record_id'] = record_id[1:]
@@ -32,6 +31,7 @@ def build_dict():
     metadata['title'] = title[1:]
     metadata['url'] = url[1:]
     metadata['description'] = description[1:]
+    metadata['keywords'] = keywords[1:]
 
     # return dictionary of all values
     return metadata
