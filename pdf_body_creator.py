@@ -1,15 +1,7 @@
-import os
-from reportlab.pdfgen import canvas
 from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-from reportlab.lib.enums import TA_JUSTIFY
 from chardet.universaldetector import UniversalDetector
-
-#
-# def list_filenames():
-#     filenames = [name.split(".")[0] for name in os.listdir(".") if name.endswith(".txt")]
-#     return filenames
 
 
 def determine_encoding(filename):
@@ -52,10 +44,3 @@ def create_pdf_body(filename, r_id):
         doc.build(content)
 
 
-# def main():
-#     for filename in list_filenames():
-#         detector_result = determine_encoding(filename)
-#         create_pdf(filename, detector_result)
-#
-#
-# main()

@@ -24,7 +24,6 @@ class XmlBuilder(object):
         return xml_formatted
 
     def prettyprint(self, root):
-        #helper method to print formatted xml document
         un_formatted = ET.tostring(root, 'utf-8')
         re_parse = minidom.parseString(un_formatted)
         return re_parse.toprettyxml(indent="    ")

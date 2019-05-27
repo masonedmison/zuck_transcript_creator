@@ -1,29 +1,4 @@
 from fpdf import FPDF
-import os
-import csv
-
-
-os.chdir('/Users/MasonBaran/Desktop/4-2_pdf_create/missed')
-
-
-# def create_filenames():
-#     # Creating list of filenames in folder specified when setting directory above
-#     filenames = [name.split("_")[0] for name in os.listdir(".") if name.endswith(".pdf")]
-#     return filenames
-
-
-# def create_metadata():
-#     metadata = []
-#     with open('zuck.csv', encoding="UTF-8") as csvfile:
-#         fieldnames = ['record_id', 'participants', 'record_type', 'record_format',
-#                       'date', 'source', 'title', 'url', 'description']
-#         reader = csv.DictReader(csvfile, fieldnames)
-#         for row in reader:
-#             record = {}
-#             for name in fieldnames:
-#                 record[name] = row[name]
-#             metadata.append(record)
-#         return metadata
 
 
 def create_pdf_cover(row):
